@@ -1,3 +1,3 @@
-# C-_Primer_Plus
+# Book list
 
-Reading notes about the book <c++_Primer_Plus>
+Reading notes 
