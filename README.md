@@ -1,6 +1,6 @@
 # Book list
 
-C++类
+C++类  
 《C++ Primer Plus》  
 《C++ Primer》  
 《深度探索C++对象模型》  
