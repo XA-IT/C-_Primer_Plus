@@ -50,3 +50,26 @@ op5->op3
 10.  Run or Execute means run the program.Typically, if you have not yet done the earlier steps, Run does them before trying to run a program.
 11. Debug means run the program with the option of going through step-by-step.
 12. A compiler may offer the option of Debug and Release versions.The former contains extra code that increases the program size, slows program execution, but enables detailed debugging features.
+
+
+compiler|extension 
+:--:|:--:
+C++ |Implementation Source Code Extension(s)  
+Unix |C, cc, cxx, c
+GNU |C++ C, cc, cxx, cpp, c++
+Digital Mars| cpp, cxx  
+Borland C++| cpp  
+Watcom |cpp
+Microsoft Visual C++| cpp, cxx, cc
+Freestyle CodeWarrior| cpp, cp, cc, cxx, c++
+
+## Chapter 2: Setting out to C++
+case sensitive: 大小写敏感
+directive: 编译指令
+1. Never omit the semicolon
+2. `int main()`: function header  
+`main()`: function name  
+`return 0;` : terminates function(return statement)
+3. If the com- piler reaches the end of main() without encountering a return statement, the effect will be the same as if you ended main() with this statement:
+`return 0;`
+This implicit return is provided only for main() and not for any other function.
