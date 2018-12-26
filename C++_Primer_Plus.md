@@ -64,8 +64,8 @@ Microsoft Visual C++| cpp, cxx, cc
 Freestyle CodeWarrior| cpp, cp, cc, cxx, c++
 
 ## Chapter 2: Setting out to C++
-case sensitive: 大小写敏感
-directive: 编译指令
+case sensitive: 大小写敏感  
+directive: 编译指令  
 1. Never omit the semicolon
 2. `int main()`: function header  
 `main()`: function name  
@@ -73,3 +73,24 @@ directive: 编译指令
 3. If the com- piler reaches the end of main() without encountering a return statement, the effect will be the same as if you ended main() with this statement:
 `return 0;`
 This implicit return is provided only for main() and not for any other function.
+4. Header File Naming Conventions
+
+Kind of Header|Convention|Example|Comments
+:--:|:--:|:--:|:--:
+C++ old style| Ends in .h| iostream.h| Usable by C++ programs
+C old style| Ends in .h |math.h| Usable by C and C++ programs
+C++ new style| No extension| iostream| Usable by C++ programs, uses namespace std
+Converted C |c prefix, no extension|cmath| Usable by C++ programs, might use non-C features, such as namespace std
+
+The contents of the iostream file to be sent along with the contents of your file to the compiler. In essence, the contents of the iostream file replace the `#include <iostream>` line in the program.
+5. The namespace facility lets a vendor package its wares in a unit called a namespace so that you can use the name of a namespace to indicate which vendor’s product you want.  
+Microflop::wanda("go dancing?"); // use Microflop namespace version   Piscine::wanda("a fish named Desire"); // use Piscine namespace version  
+6. bitwise left-shift operator: 左换位符  
+7. Overloading： The important point here is not the exact function of these operators but that the same symbol can have more than one meaning, with the compiler determining the proper meaning from the context.
+8. Starting a new line  
+`cout << "\n"; // start a new line`   
+`cout << endl; // start a new line`  
+The newline character is one example of special keystroke combinations termed “escape sequences”(转义字符)
+9. carriage return: 回车  
+parentheses and commas：括号和逗号  
+10. Use a declaration statement to indicate the type of storage and to provide a label for the location. This statement provides two kinds of information: the type of memory storage needed and a label to attach to that storage. 
