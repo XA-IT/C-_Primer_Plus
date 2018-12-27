@@ -94,3 +94,11 @@ The newline character is one example of special keystroke combinations termed �
 9. carriage return: 回车  
 parentheses and commas：括号和逗号  
 10. Use a declaration statement to indicate the type of storage and to provide a label for the location. This statement provides two kinds of information: the type of memory storage needed and a label to attach to that storage. 
+
+11. The C++ style for declaring variables is to declare a variable as close to its first use as possible.
+12. For output, the << operator inserts characters into the output stream. For input, cin uses the >> operator to extract characters from the input stream.Typically, you provide a variable to the right of the operator to receive the extracted information. (The symbols << and >> were chosen to visually suggest the direc- tion in which information flows.)
+13. A class is a data type the user defines. To define a class, you describe what sort of infor- mation it can represent and what sort of actions you can perform with that data. The class describes all the properties of a data type, including actions that can be per- formed with it, and an object is an entity created according to that description.
+14. argument: 参数  
+In short, an argument is information sent to the func- tion, and the return value is a value sent back from the function.
+
+
