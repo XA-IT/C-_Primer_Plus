@@ -82,20 +82,19 @@ C old style| Ends in .h |math.h| Usable by C and C++ programs
 C++ new style| No extension| iostream| Usable by C++ programs, uses namespace std
 Converted C |c prefix, no extension|cmath| Usable by C++ programs, might use non-C features, such as namespace std
 
-The contents of the iostream file to be sent along with the contents of your file to the compiler. In essence, the contents of the iostream file replace the `#include <iostream>` line in the program.
+The contents of the iostream file to be sent along with the contents of your file to the compiler. In essence, the contents of the iostream file replace the `#include <iostream>` line in the program.  
 5. The namespace facility lets a vendor package its wares in a unit called a namespace so that you can use the name of a namespace to indicate which vendor’s product you want.  
 `Microflop::wanda("go dancing?"); // use Microflop namespace version`   
-`Piscine::wanda("a fish named Desire"); // use Piscine namespace version`
+`Piscine::wanda("a fish named Desire"); // use Piscine namespace version`  
 6. bitwise left-shift operator: 左换位符  
-7. Overloading： The important point here is not the exact function of these operators but that the same symbol can have more than one meaning, with the compiler determining the proper meaning from the context.
+7. Overloading： The important point here is not the exact function of these operators but that the same symbol can have more than one meaning, with the compiler determining the proper meaning from the context.  
 8. Starting a new line  
 `cout << "\n"; // start a new line`   
 `cout << endl; // start a new line`  
 The newline character is one example of special keystroke combinations termed “escape sequences”(转义字符)
 9. carriage return: 回车  
 parentheses and commas：括号和逗号  
-10. Use a declaration statement to indicate the type of storage and to provide a label for the location. This statement provides two kinds of information: the type of memory storage needed and a label to attach to that storage. 
-
+10. Use a declaration statement to indicate the type of storage and to provide a label for the location. This statement provides two kinds of information: the type of memory storage needed and a label to attach to that storage.  
 11. The C++ style for declaring variables is to declare a variable as close to its first use as possible.
 12. For output, the << operator inserts characters into the output stream. For input, cin uses the >> operator to extract characters from the input stream.Typically, you provide a variable to the right of the operator to receive the extracted information. (The symbols << and >> were chosen to visually suggest the direc- tion in which information flows.)
 13. A class is a data type the user defines. To define a class, you describe what sort of infor- mation it can represent and what sort of actions you can perform with that data. The class describes all the properties of a data type, including actions that can be per- formed with it, and an object is an entity created according to that description.
