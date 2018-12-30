@@ -166,5 +166,19 @@ int residue = prune();
 10. You don’t have to use return in a function when the function has the return type void. However, you can use it if you don’t give a return value:
 return;
 
+## Chapter 3: Dealing with Data
+1. The essence of object-oriented programming (OOP) is designing and extending your own data types. Designing your own data types represents an effort to make a type match the data.
+2. To store an item of information in a computer, the program must keep track of three funda- mental properties:
+- Where the information is stored   
+- What value is kept there   
+- What kind of information is stored  
+3. simple C++ naming rules:
+- The only characters you can use in names are alphabetic characters, numeric digits, and the underscore (_) character.
+- The first character in a name cannot be a numeric digit.
+- Uppercase characters are considered distinct from lowercase characters.
+- You can’t use a C++ keyword for a name.
+- Names beginning with two underscore characters or with an underscore character followed by an uppercase letter are reserved for use by the implementation—that is, the compiler and the resources it uses. Names beginning with a single underscore character are reserved for use as global identifiers by the implementation.
+- C++ places no limits on the length of a name, and all characters in a name are sig- nificant. However, some platforms might have their own length limits.
+4. hyphen: 连字符号
 
 
