@@ -180,5 +180,48 @@ return;
 - Names beginning with two underscore characters or with an underscore character followed by an uppercase letter are reserved for use by the implementation—that is, the compiler and the resources it uses. Names beginning with a single underscore character are reserved for use as global identifiers by the implementation.
 - C++ places no limits on the length of a name, and all characters in a name are sig- nificant. However, some platforms might have their own length limits.
 4. hyphen: 连字符号
+- A short integer is at least 16 bits wide.
+- An int integer is at least as big as short.
+- A long integer is at least 32 bits wide and at least as big as int.
+- A long long integer is at least 64 bits wide and at least as big as long.
+5. Think of a bit as an electronic switch that you can set to either off or on. Off represents the value 0, and on represents the value 1. A byte usually means an 8-bit unit of memory.
+6. int is 4 bytes. short is 2 bytes. long is 4 bytes. long long is 8 bytes.  
+Maximum values:  
+int: 2147483647  
+short: 32767  
+long: 2147483647  
+long long: 9223372036854775807  
+Minimum int value = -2147483648 Bits per byte = 8
+7. Symbolic Constants from climits
 
+**Symbolic Constant**|**Represents**
+:--:|:--:
+CHAR_BIT |Number of bits in a char
+CHAR_MAX |Maximum char value
+CHAR_MIN |Minimum char value
+SCHAR_MAX |Maximum signed char value
+SCHAR_MIN |Minimum signed char value
+UCHAR_MAX |Maximum unsigned char value
+SHRT_MAX |Maximum short value
+SHRT_MIN |Minimum short value
+USHRT_MAX |Maximum unsigned short value
+INT_MAX |Maximum int value
+INT_MIN |Minimum int value
+UINT_MAX |Maximum unsigned int value
+LONG_MAX |Maximum long value
+LONG_MIN |Minimum long value
+ULONG_MAX |Maximum unsigned long value
+LLONG_MAX |Maximum long long value
+LLONG_MIN |Minimum long long value
+ULLONG_MAX |Maximum unsigned long long value
+8.The initialization syntax shown previously comes from C; C++ has an initialization syntax that is not shared with C:  
+`int owls = 101; // traditional C initialization, sets owls to 101 int` `wrens(432); // alternative C++ syntax, set wrens to 432`
+9. There’s another format for initialization that’s used with arrays and structures but in C++98 can also be used with single-valued variables:  
+`int hamburgers = {24}; // set hamburgers to 24`
+10. Using a braced initializer for a single-valued variable hasn’t been particularly common, but the C++11 standard is extending it some ways. First, it can be used with or without the = sign:  
+`int emus{7}; // set emus to 5`
+`int rheas = {12}; // set rheas to 12`  
+Second, the braces can be left empty, in which case the variable is initialized to 0:  
+`int rocs = {}; // set rocs to 0`
+`int psychics{}; // set psychics to 0`
 
