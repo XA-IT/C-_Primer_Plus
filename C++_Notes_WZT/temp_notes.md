@@ -1,4 +1,6 @@
 ### C++ general learning
+C++清华：https://www.bilibili.com/video/av20786390
+
 #### 函数
 - 含有可变参数的函数
   - 所有实参类型相同，使用`initializer_list<T> lst;`模板初始化，<T>表元素类型，对象元素永远为常量值
