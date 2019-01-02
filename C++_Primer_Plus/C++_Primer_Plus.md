@@ -224,4 +224,30 @@ ULLONG_MAX |Maximum unsigned long long value
 Second, the braces can be left empty, in which case the variable is initialized to 0:  
 `int rocs = {}; // set rocs to 0`
 `int psychics{}; // set psychics to 0`
-
+11. use unsigned types only for quantities that are never negative.
+```
+unsigned short change; // unsigned short type
+unsigned int rovert; // unsigned int type
+unsigned quarterback; // also unsigned int
+unsigned long gone; // unsigned long type
+unsigned long long lang_lang; // unsigned long long type
+```
+     Note that unsigned by itself is short for unsigned int.
+12. decimal: 十进制  
+octal：八进制  
+hex：十六进制  
+13. uses hex and oct to display the decimal value 42 in three formats.
+``` 
+cout << "Monsieur cuts a striking figure!" << endl;
+cout << "chest = " << chest << " (decimal for 42)" << endl; cout << hex; // manipulator for changing number base
+cout << "waist = " << waist << " (hexadecimal for 42)" << endl; 
+cout << oct; // manipulator for changing number base
+Monsieur cuts a striking figure! chest = 42 (decimal for 42) 
+waist = 2a (hexadecimal for 42) 
+inseam = 52 (octal for 42)
+```
+14. The answer is that C++ stores integer constants as type int unless there is a reason to do oth- erwise. Two such reasons are if you use a special suffix to indicate a particular type or if a value is too large to be an int.
+15. These are letters placed at the end of a numeric constant to indicate the type. An l or L suffix on an integer means the integer is a type long constant, a u or U suffix indicates an unsigned int constant, and ul (in any combination of orders and uppercase and lowercase) indicates a type unsigned long constant. (Because a lower- case l can look much like the digit 1, you should use the uppercase L for suffixes.) For example, on a system using a 16-bit int and a 32-bit long, the number 22022 is stored in 16 bits as an int, and the number 22022L is stored in 32 bits as a long. Similarly, 22022LU and 22022UL are unsigned long. C++11 provides the ll and LL suffixes for type long long, and ull, Ull, uLL, and ULL for unsigned long long.
+16. A decimal integer without a suffix is represented by the smallest of the following types that can hold it:int, long, or long long. On a computer system using a 16-bit int and a 32-bit long, 20000 is represented as type int, 40000 is represented as long, and 3000000000 is represented as long long.A hexadecimal or octal integer without a suffix is represented by the smallest of the following types that can hold it:int,unsigned int,long,unsigned long,long long, or unsigned long long.The same computer system that represents 40000 as long represents the hexadecimal equivalent 0x9C40 as an unsigned int.That’s because hexa- decimal is frequently used to express memory addresses, which intrinsically are unsigned. So unsigned int is more appropriate than long for a 16-bit address.
+17. C++ uses single quotation marks for a character and double quotation marks for a string.
+18. the program introduces a cout feature, the cout.put() function, which displays a single character.
