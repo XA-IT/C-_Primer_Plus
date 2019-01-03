@@ -251,3 +251,81 @@ inseam = 52 (octal for 42)
 16. A decimal integer without a suffix is represented by the smallest of the following types that can hold it:int, long, or long long. On a computer system using a 16-bit int and a 32-bit long, 20000 is represented as type int, 40000 is represented as long, and 3000000000 is represented as long long.A hexadecimal or octal integer without a suffix is represented by the smallest of the following types that can hold it:int,unsigned int,long,unsigned long,long long, or unsigned long long.The same computer system that represents 40000 as long represents the hexadecimal equivalent 0x9C40 as an unsigned int.That’s because hexa- decimal is frequently used to express memory addresses, which intrinsically are unsigned. So unsigned int is more appropriate than long for a 16-bit address.
 17. C++ uses single quotation marks for a character and double quotation marks for a string.
 18. the program introduces a cout feature, the cout.put() function, which displays a single character.
+19. A member function belongs to a class and describes a method for manipulating class data. To use a class member function with an object such as cout, you use a period to combine the object name (cout) with the function name (put()). The period is called the membership operator.The notation cout.put() means to use the class member function put() with the class object cout.
+20. C++ Escape Sequence Codes 转义序列编码
+
+Character Name|ASCII Symbol|C++ Code|ASCII Decimal Code|ASCII Hex Code
+:--:|:--:|:--:|:--:|:--:
+Newline| NL (LF)| \n |10 |0xA
+Horizontal tab| HT| \t |9| 0x9
+Vertical tab| VT| \v |11| 0xB
+Backspace |BS| \b |8 |0x8
+Carriage return| CR| \r |13| 0xD
+Alert| BEL| \a |7 |0x7
+Backslash| \ | \\\ |92 |0x5C
+Question mark| ?| \\? |63 |0x3F
+Single quote| ’| \\' |39 |0x27
+Double quote| ”| \\" |34| 0x22
+
+21. Note that you treat an escape sequence, such as \n, just as a regular character, such as Q. That is, you enclose it in single quotes to create a character constant and don’t use single quotes when including it as part of a string.
+22. sing universal character names is similar to using escape sequences.A universal char- acter name begins either with \u or \U.The \u form is followed by 8 hexadecimal digits, and the \U form by 16 hexadecimal digits.
+23. These distinctions are particularly important if you use char as a numeric type.The unsigned char type typically represents the range 0 to 255, and signed char typically represents the range –128 to 127.
+```
+char fodo; // may be signed, may be unsigned
+unsigned char bar; // definitely unsigned
+signed char snark; // definitely signed
+```
+24. The iostream header file provides parallel facilities in the form of wcin and wcout for handling wchar_t streams.
+```
+wchar_t bob = L'P'; // a wide-character constant
+wcout << L"tall" << endl; // outputting a wide-character string
+```
+On a system with a 2-byte wchar_t, this code stores each character in a 2-byte unit of memory.
+25. C++11 introduces the types char16_t, which is unsigned and 16 bits, and char32_t, which is unsigned and 32 bits. C++11 uses the u prefix for char16_t character and string constants, as in u'C' and u"be good". Similarly, it uses the U prefix for char32_t constants, as in U'R' and U"dirty rat".
+26. The literals true and false can be converted to type int by promotion, with true converting to 1 and false to 0:
+`int ans = true; // ans assigned 1`
+`int promise = false; // promise assigned 0`
+Also any numeric or pointer value can be converted implicitly (that is, without an explicit type cast) to a bool value. Any nonzero value converts to true, whereas a zero value converts to false:
+`bool start = -100; // start assigned true `
+`bool stop = 0; // stop assigned false`
+27. The keyword const is termed a qualifier because it qualifies the meaning of a declaration. A common practice is to capitalize the first character in a name to help remind your- self that Months is a constant.
+28. You can represent the second as 0.341245 (the same base value) and 100,000 (a bigger scaling factor).The scaling factor serves to move the decimal point, hence the term floating-point. C++ uses a similar method to represent floating-point numbers internally, except it’s based on binary numbers, so the scaling is by factors of 2 instead of by factors of 10.
+29. The form d.dddE+n means move the decimal point n places to the right, and the form d.dddE-n means move the decimal point n places to the left. This moveable decimal point is the origin of the term “floating-point.”
+30. Significant figures are the meaningful digits in a number. In effect, the C and C++ requirements for significant digits amount to float being at least 32 bits, double being at least 48 bits and certainly no smaller than float, and long double being at least as big as double.All three can be the same size.Typically, however, float is 32 bits, double is 64 bits, and long double is 80, 96, or 128 bits. Also the range in exponents for all three types is at least –37 to +37.
+31. When you write a floating-point constant in a program, in which floating-point type does the program store it? By default, floating-point constants such as 8.24 and 2.4E8 are type double. If you want a constant to be type float, you use an f or F suffix. For type long double, you use an l or L suffix. (Because the lowercase l looks a lot like the digit 1, the uppercase L is a better choice.) Here are some samples:
+`1.234f // a float constant `
+`2.45E20F // a float constant`
+`2.345324E28 // a double constant`
+`2.2L // a long double constant`
+32. C++ brings some order to its basic types by classifying them into families. Types signed char, short, int, and long are termed signed integer types. C++11 adds long long to that list. The unsigned versions are termed unsigned integer types. The bool, char, wchar_t, signed integer, and unsigned integer types together are termed integral types or integer types. C++11 adds char16_t and char32_t to that list. The float, double, and long double types are termed floating-point types. Integer and floating-point types are col- lectively termed arithmetic types.
+33. C++’s five basic arithmetic operators:
+- The + operator adds its operands. For example, 4 + 20 evaluates to 24.
+- The - operator subtracts the second operand from the first. For example, 12 - 3 evaluates to 9.
+- The * operator multiplies its operands. For example, 28 * 4 evaluates to 112.
+- The / operator divides its first operand by the second. For example, 1000 / 5 eval- uates to 200. If both operands are integers, the result is the integer portion of the quotient. For example, 17 / 3 is 5, with the fractional part discarded.
+- The % operator finds the modulus of its first operand with respect to the second. That is, it produces the remainder of dividing the first by the second. For example, 19 % 6 is 1 because 6 goes into 19 three times, with a remainder of 1. Both operands must be integer types; using the % operator with floating-point values causes a compile-time error. If one of the operands is negative, the sign of the result satisfies the following rule: (a/b)*b + a%b equals a.
+34. When two operators have the same precedence, C++ looks at whether the operators have a left-to-right associativity or a right-to-left associativity.
+35.  If both operands are integers, C++ performs integer division.That means any fractional part of the answer is discarded, mak- ing the result an integer. If one or both operands are floating-point values, the fractional part is kept, making the result floating-point.
+36. Type Conversions:
+- C++ converts values when you assign a value of one arithmetic type to a variable of another arithmetic type.
+- C++ converts values when you combine mixed types in expressions. 
+- C++ converts values when you pass arguments to functions.
+37. Potential Numeric Conversion Problems
+
+Conversion Type|potential Problems
+:--:|:--:
+Bigger floating-point type to smaller floating-point type, such as double to float|Loss of precision (significant figures); value might be out of range for target type, in which case result is undefined.
+Floating-point type to integer type | Loss of fractional part; original value might be out of range for target type, in which case result is undefined.
+Bigger integer type to smaller integer type, such as long to short|Original value might be out of range for target type; typically just the low-order bytes are copied.
+38. The int type is generally chosen to be the computer’s
+most natural type, which means the computer probably does calculations fastest for that type.
+39. Here’s the C++11 version of the list, which the compiler goes through in order:
+    1. If either operand is type long double, the other operand is converted to long double.
+    2. Otherwise, if either operand is double, the other operand is converted to double.
+    3. Otherwise, if either operand is float, the other operand is converted to float.
+    4. Otherwise, the operands are integer types and the integral promotions are made.
+    5. In that case, if both operands are signed or if both are unsigned, and one is of lower rank than the other, it is converted to the higher rank.
+    6. Otherwise, one operand is signed and one is unsigned. If the unsigned operand is of higher rank than the signed operand, the latter is converted to the type of the unsigned operand.
+    7. Otherwise, if the signed type can represent all values of the unsigned type, the unsigned operand is converted to the type of the signed type.
+    8. Otherwise, both operands are converted to the unsigned version of the signed type.
+40. This list introduces the concept of ranking the integer types. In brief, as you might expect, the basic ranking for signed integer types from high to low is long long, long, int, short, and signed char. Unsigned types have the same rank as the corresponding signed type.The three types char,signed char, and unsigned char all have the same rank.The bool type has the lowest rank.The wchar_t,char16_t, and char32_t have the same types as their underlying types.
