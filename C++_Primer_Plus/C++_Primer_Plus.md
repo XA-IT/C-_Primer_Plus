@@ -329,3 +329,70 @@ most natural type, which means the computer probably does calculations fastest f
     7. Otherwise, if the signed type can represent all values of the unsigned type, the unsigned operand is converted to the type of the signed type.
     8. Otherwise, both operands are converted to the unsigned version of the signed type.
 40. This list introduces the concept of ranking the integer types. In brief, as you might expect, the basic ranking for signed integer types from high to low is long long, long, int, short, and signed char. Unsigned types have the same rank as the corresponding signed type.The three types char,signed char, and unsigned char all have the same rank.The bool type has the lowest rank.The wchar_t,char16_t, and char32_t have the same types as their underlying types.
+41. In brief, as you might expect, the basic ranking for signed integer types from high to low is long long, long, int, short, and signed char. Unsigned types have the same rank as the corresponding signed type.The three types char,signed char, and unsigned char all have the same rank.The bool type has the lowest rank.The wchar_t,char16_t, and char32_t have the same types as their underlying types.
+42. Of the four,the static_cast<> operator, can be used for converting values from one numeric type to another.
+`static_cast<typeName> (value) // converts value to typeName type`
+43.Just use auto instead of the type name in an initializing declaration, and the com- piler assigns the variable the same type as that of the initializer: 
+```
+auto n = 100; // n is int
+auto x = 1.5; // x is double 
+auto y = 1.3e12L; // y is long double
+```
+44. From smallest to largest, the integer types are bool,char,signed char,unsigned char,short,unsigned short,int,unsigned int,long, unsigned long, and, with C++11, long long, and unsigned long long. 
+
+ ## Chapter Review
+You can find the answers to the chapter review at the end of each chapter in Appendix J, “Answers to Chapter Review.”
+1. Why does C++ have more than one integer type?
+2. Declare variables matching the following descriptions:
+a. A short integer with the value 80
+b. An unsigned int integer with the value 42,110
+c. An integer with the value 3,000,000,000
+3. What safeguards does C++ provide to keep you from exceeding the limits of an integer type?
+4. What is the distinction between 33L and 33?
+5. Consider the two C++ statements that follow:
+char grade = 65; char grade = 'A';
+Are they equivalent?
+6. How could you use C++ to find out which character the code 88 represents? Come up with at least two ways.
+7. Assigning a long value to a float can result in a rounding error.What about assigning long to double? long long to double?
+8. Evaluate the following expressions as C++ would:
+a. 8 *9 + 2
+b. 6 *3 / 4
+c. 3 / 4 *6
+d. 6.0 * 3 / 4
+e. 15 % 4
+9. Suppose x1 and x2 are two type double variables that you want to add as integers and assign to an integer variable. Construct a C++ statement for doing so.What if you want to add them as type double and then convert to int?
+10. What is the variable type for each of the following declarations? a. auto cars = 15;
+b. auto iou = 150.37f; c. auto level = 'B';
+d. auto crat = U'/U00002155'; e. auto fract = 8.25f/2.5;
+
+# Answer
+1. Having more than one integer type lets you choose the type that is best suited to a particular need. For example, you could use short to conserve space or long to guarantee storage capacity or to find that a particular type speeds up a particular calculation.
+2. short rbis = 80; // or short int rbis = 80; unsigned int q = 42110; // or unsigned q = 42110; unsigned long ants = 3000000000;
+// or long long ants = 3000000000;
+Note: Don’t count on int being large enough to hold 3,000,000,000. Also if your system supports universal list-initialization, you could use it:
+short rbis = {80}; // = is optional
+unsigned int q {42110}; // could use = {42110}
+long long ants {3000000000};
+3. C++ provides no automatic safeguards to keep you from exceeding integer limits; you can use the climits header file to determine what the limits are.
+4. The constant 33L is type long, whereas the constant 33 is type int.
+5. The two statements are not really equivalent, although they have the same effect on some systems. Most importantly, the first statement assigns the letter A to grade only on a system using the ASCII code, while the second statement also works for other codes. Second, 65 is a type int constant, whereas 'A' is a type char constant.
+6. Here are four ways:
+```
+char c = 88; // char type prints as character
+cout << c << endl; // put() prints char as character
+cout.put(char(88)); // new-style type cast value to char
+cout << char(88) << endl; cout << (char)88 << endl; // old-style type cast value to char
+```
+7. The answer depends on how large the two types are. If long is 4 bytes, there is no loss.That’s because the largest long value would be about 2 billion, which is 10 dig- its. Because double provides at least 13 significant figures, no rounding would be needed.The long long type, on the other hand, can reach 19 digits, which exceeds the 13 significant figures guaranteed for double.
+8. a. 8 * 9 + 2 is 72 + 2 is 74
+b. 6 * 3 / 4 is 18 / 4 is 4
+c. 3 / 4 * 6 is 0 * 6 is 0
+d. 6.0 * 3 / 4 is 18.0 / 4 is 4.5 e. 15 % 4 is 3
+9. Either of the following would work for the first task:
+int pos = (int) x1 + (int) x2; int pos = int(x1) + int(x2);
+To add them as type double and then convert, you could do either of the following: int pos = (int) (x1 + x2);
+int pos = int(x1 + x2);
+10. a. int
+b. float
+c. char
+d. char32_t e. double
