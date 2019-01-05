@@ -1,6 +1,18 @@
 ## C++ general learning
 C++清华：https://www.bilibili.com/video/av20786390
+《C++ Primer（第5版）》
 ### 数据、表达式
+#### 变量和基本类型
+- 引用 *（primer）* 
+  - 即 **对象** 别名，需与绑定对象类型严格匹配
+  - 例外： 常量引用，初始化时会将右侧类型进行转换
+- void* 指针
+  - 仅仅是地址值，不能操作指向的数据
+  - 可用static_cast< >强制转换
+- const 与 constexpr
+  - 编译时就能 **计算结果** 的表达式
+  - 顶层const：指针本身为常量
+  - 见constexpr函数
 #### 数据类型的转换
 - 算术类型转换
   - 赋值语句中，右侧类型被转换为左侧的
@@ -29,7 +41,7 @@ C++清华：https://www.bilibili.com/video/av20786390
 - 不能含有循环与switch语句
 - 定义需在调用之前
 - 不能进行异常接口声明
-#### constexpr函数
+#### constexpr函数（C++11）
 - 由编译器校验是否为常量表达式
 - 仅能用于字面值类型， 对于指针，constexpr表示常量指针，为顶层const
 
@@ -143,5 +155,15 @@ C++清华：https://www.bilibili.com/video/av20786390
   - `int a[10], *pa;`  `pa = a;`
   - `a[i], *(pa+i), *(a+i), pa[i]`均为等效
 - 使用指针作为参数
+- 指针类型的函数
+  - 不能返回非静态局部地址
+  - 可以返回在调用前就已分配的地址
+  - 也可以返回动态内存分配获得的地址，但需要注意释放
 - 指向 **函数** 的指针
   - `存储类型 数据类型 (*函数指针名)();`
+  - 函数回调 将函数指针作为参数传递
+  - e.g. `int compute(int a, int b, int(*func)(int, int)) {return func(a, b);}`
+- 指向对象的指针
+  - `ptr->getx();`等价于`(*ptr).getx();`
+  - `*this`指针
+- 6-12-1
