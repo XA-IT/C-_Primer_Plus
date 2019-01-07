@@ -13,11 +13,19 @@ C++清华：https://www.bilibili.com/video/av20786390
   - 编译时就能 **计算结果** 的表达式
   - 顶层const：指针本身为常量
   - 见constexpr函数
+- 别名
+  - `typedef double wages; //定义wages为double的别名`
+  - `C++11: using SI = Sales_item; //定义SI为Sales_item别名`
+  - 注意！`typedef char* pstring; //是指针的别名` >> `const pstring cstr = 0; //表示一个常量指针而非指向const char的指针`
+- auto 与 decltype
+  - auto 会忽略掉顶层const，但保留底层const
+  - decltype((变量))将会返回变量的引用，因此必须初始化，对于变量为解引用操作同样需要初始化
+
 #### 数据类型的转换
 - 算术类型转换
   - 赋值语句中，右侧类型被转换为左侧的
   - 将小整数类型转换为更宽的整数类型
-  - 将有符号类型转换为无符号类型
+  - 将有符号类型转换为无符号类型（注意！：比较运算等也会进行转换）
 - 其他隐式转换
   - 数组转化为指针
   - 指针的转换（NULL, nullptr, void*等）
