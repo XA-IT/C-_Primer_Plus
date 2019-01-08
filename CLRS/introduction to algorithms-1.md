@@ -1,4 +1,5 @@
 ### 算法导论——基础
+部分笔记手写于OneNote
 #### 插入排序 & 归并排序
 INSERTION-SORT  
 - 循环不变式  
@@ -38,3 +39,9 @@ INSERTION-SORT
   - 仅限于如下形式： `T(n)= aT(n/b) + f(n)` 且 `a>=1, b>1, f(n)渐近趋正`
 
 #### 分治策略
+
+#### 快速排序
+- 算法
+  - devide: partition 
+  - conquer
+  - combine
