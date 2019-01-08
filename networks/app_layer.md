@@ -32,4 +32,29 @@
       - Accept-language: fr        //表示希望接收法语版本
     - 空行
     - 实体体 （entity body）
-  - HTTP相应报文
+  - HTTP响应报文
+    - 初始**状态行** status line 
+      - 协议版本字段
+      - 状态码 
+        - 200    OK: 请求成功
+        - 301    Moved permanently
+        - 400    Bad request
+        - 404    Not found
+      - 状态信息
+    - 首部行
+    - 空行
+    - 实体体
+
+- cookie
+  - 用于在无状态的HTTP之上建立web站点识别用户的功能
+
+- web缓存 / 代理
+  - 既是服务器又是客户
+  - 通过使用cdn发挥更大作用
+
+- 条件GET方法
+  - 保证对象的新鲜度，由代理缓存器维护
+  - 使用GET方法，并在首部行中包含`If-Modified-Since: `信息，由于报文中记录有修改时间，因此可以比较
+  - 服务器返回`304 Not Modified` 信息，表明未修改
+
+### FTP
