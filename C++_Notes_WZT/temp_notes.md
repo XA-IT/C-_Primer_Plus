@@ -42,6 +42,25 @@ C++清华：https://www.bilibili.com/video/av20786390
   - reinterpret_cast
   - dynamic_cast
 
+#### 表达式
+- if else 与 switch case
+  - case标签须为整型常量表达式，可以多个case执行相同语句
+  - 若要在case内定义新的变量，需要定义在块{}内，限定作用域
+- try与异常处理
+  - `throw表达式` 异常检测 `throw exception-declaration(一个string / c风格字符串用于初始化)`
+  - `try语句块` 尝试处理异常
+  - 异常类`exception class`用于传递具体异常信息
+    ```
+    try {
+      program-statements
+    } catch (exception-declaration) {
+      handler-statements
+    } //...
+    ```
+  - 标准异常\<stdexcept>定义的异常类
+    - exception 需默认初始化，其他如`runtime_error` `range_error` 等需用string或字符串初始化
+    - 异常类型只定义一个`what()`函数，返回一个异常信息（字符串）
+ 
 ### 函数
 #### 含有可变参数的函数
 - 所有实参类型相同，使用`initializer_list<T> lst;`模板初始化，<T>表元素类型，对象元素永远为常量值
