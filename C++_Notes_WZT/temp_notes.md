@@ -18,7 +18,7 @@ C++清华：https://www.bilibili.com/video/av20786390
   - `C++11: using SI = Sales_item; //定义SI为Sales_item别名`
   - 注意！`typedef char* pstring; //是指针的别名` >> `const pstring cstr = 0; //表示一个常量指针而非指向const char的指针`
 - auto 与 decltype
-  - auto 会忽略掉顶层const，但保留底层const
+  - auto 会**忽略**掉顶层const，但保留底层const
   - decltype((变量))将会返回变量的引用，因此必须初始化，对于变量为解引用操作同样需要初始化
 
 #### 数据类型的转换
@@ -62,9 +62,22 @@ C++清华：https://www.bilibili.com/video/av20786390
     - 异常类型只定义一个`what()`函数，返回一个异常信息（字符串）
  
 ### 函数
-#### 含有可变参数的函数
-- 所有实参类型相同，使用`initializer_list<T> lst;`模板初始化，<T>表元素类型，对象元素永远为常量值
-- 类型不同，使用可变参数模板
+#### 参数传递
+- 使用引用传参，避免拷贝
+  - 若无需改变形参的值，可尽量声明为常量引用（从而可以使用字面值初始化）
+  - 引用传参类型必须一致，不可为如const不一致、字面值、求值结果为该类型的表达式、需要转换的对象等
+- 使用const型初始化时会**忽略**顶层const
+- 含有可变参数的函数
+  - 所有实参类型相同，使用`initializer_list<T> lst;`模板初始化，<T>表元素类型，对象元素永远为常量值
+  - 类型不同，使用可变参数模板
+#### 参数返回
+- 使用引用返回左值，即函数可作为赋值语句左侧的值
+- C++11: 与列表初始化原理相同，可列表初始化返回值
+- 返回数组时：
+  - 可以使用typedef， `typedef int arrT[10];` 或 `using arrT = int[10];` 都表示arrT为一个十整数数组
+  - `int (*func(int i)) [10];`
+  - C++11: 尾置返回类型 `auto func(int i) -> int (*)[10];`
+  - C++11: decltype: `decltype(odd) *func(int i){};` odd为前文声明的数组，返回值为指针
 #### 内联函数
 - 不能含有循环与switch语句
 - 定义需在调用之前
@@ -72,6 +85,9 @@ C++清华：https://www.bilibili.com/video/av20786390
 #### constexpr函数（C++11） 与constexpr类型
 - 由编译器校验是否为常量表达式
 - 仅能用于字面值类型， 对于指针，constexpr表示常量指针，为顶层const
+#### main函数
+- `int main(int argc, char *argv[]){...};` argv为数组，元素为指向c风格字符串的指针，argv[0]为程序名
+- main函数可以没有返回值
 
 ### 类
 #### 类的设计
@@ -168,6 +184,7 @@ C++清华：https://www.bilibili.com/video/av20786390
 - 数组名为常量，标志首元素的内存地址
   - 在索引时可以用指针变量代替数组名称，对于内置类型（非vector、string类的stl类型）索引甚至可以为负，只要指向位置合法
     - `int (*p)[4] = ia;` p为指向一个含有四个元素的数组的指针，括号**不可省略**，否则意为元素为指针的数组
+  - 数组**不可直接拷贝**
 - 二维数组可以只对部分元素初始化，第一维下表数可以省略
   - `static int a[][4] = {{1,2},{1,2,3,4},{12}};`
 - 作为参数传入函数时，传的是首地址，因此原始数组是可被函数修改的
