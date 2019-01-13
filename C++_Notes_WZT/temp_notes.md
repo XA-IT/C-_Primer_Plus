@@ -110,6 +110,7 @@ C++清华：https://www.bilibili.com/video/av20786390
     ```
 ### 类
 #### 类的设计
+数据抽象和封装：**接口**与**实现**分离
 - “合法值”是什么
 - 具有何种功能？ 函数、操作符
 - 如何被创建与销毁
@@ -117,6 +118,10 @@ C++清华：https://www.bilibili.com/video/av20786390
 - 如何作为参数传递
 - 谁可以使用？权限？
 #### 类的成员
+- 常量成员函数 `string isbn() const { return bookNo;}`
+  - const限定this，表示this指向一个常量，避免函数修改
+  - 这样的声明使得对象本身为常量对象时可以调用该函数
+- 成员函数的编译在其他成员之后，因此无需担心声明顺序
 - public
 - private
 - protected
@@ -245,7 +250,7 @@ C++清华：https://www.bilibili.com/video/av20786390
   - e.g. `int compute(int a, int b, int(*func)(int, int)) {return func(a, b);}`
 - 指向对象的指针
   - `ptr->getx();`等价于`(*ptr).getx();`
-  - `*this`指针
+  - `*this`指针 一个常量指针，指向对象本身
 - 6-12-1
 
 #### 表达式
