@@ -18,7 +18,7 @@
 
 ### Web和HTTP
 - 一种无状态协议，不记录用户状态信息；
-- 是否为非持续连接（non-persistent connection）
+- 可按 是否为非持续连接（non-persistent connection） 区分
 - HTTP报文格式
   - HTTP请求报文
     - 请求行 request line 第一行 `GET /somedir/page.html HTTP/1.1`
@@ -58,3 +58,18 @@
   - 服务器返回`304 Not Modified` 信息，表明未修改
 
 ### FTP
+- 两个并行的tcp连接： 控制连接和数据连接， 带外(out-of-band)传送
+  - 控制连接贯穿会话始终，每传输一个文件打开一个数据连接
+  - 需要记录用户在服务器的访问状态
+- FTP的命令和回答
+  - 以7bit ASCII格式在控制连接传输，常见命令：
+    - USER username;
+    - PASS password;
+    - LIST;
+    - RETR filename;
+    - STOR filename;
+  - 回答：
+    - 331 Username OK, Password required
+    - 125 Data connection already open; transfer starting
+    - 425 Can't open data connection
+    - 452 Error writing file
