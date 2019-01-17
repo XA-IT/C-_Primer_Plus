@@ -96,3 +96,10 @@
 
     ```
 - 邮件访问协议，POP3，IMAP与HTTP
+  - POP3: 特许（authorization），事务处理，更新
+    - authorization：`user <username>` 和 `pass <password>`，
+    - 事物处理： 下载并 删除or保留
+      - 下载并删除：list, retr, dele操作
+    - 更新：根据用户标记进行删除
+    - 会话中不传递状态信息，仅在服务器端记录状态信息
+  - IMAP: 可以更好地管理邮件内容，指定在远端存放的文件夹等
