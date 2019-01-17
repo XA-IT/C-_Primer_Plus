@@ -73,3 +73,26 @@
     - 125 Data connection already open; transfer starting
     - 425 Can't open data connection
     - 452 Error writing file
+
+### 电子邮件
+- 概况
+  - 用户代理， 邮件服务器， 简单邮件传输协议SMTP
+  - 用户发送后进入发送方邮件服务器的报文队列当中，若多次尝试仍不能转交给接收方服务器，则告知发送方
+- SMTP
+  - 使用TCP协议
+  - 客户SMTP（运行在发件服务器） 在25号端口建立一个到服务器SMTP（收件服务器）的TCP连接
+    - 持续连接，多个报文可用同一个TCP连接发送
+- 与HTTP的对比
+  - 传输对象不同，一个是Web服务器向Web用户传输，另一个是服务器之间的传输，但二者都使用持续连接
+  - HTTP是一个拉协议PULL protocol，而SMTP是一个推协议PUSH protocol
+  - SMTP要求所有报文内容使用7bit ASCⅡ编码
+  - SMTP将所有报文对象放入一个报文之中，而HTTP则将每个对象单独封装
+- 邮件报文格式
+  - 典型的报文首部：
+    ```
+    From: alice@crepes.fr
+    To: bob@hamburger.edu
+    Subject: Searching for the meaning of life.
+
+    ```
+- 邮件访问协议，POP3，IMAP与HTTP
