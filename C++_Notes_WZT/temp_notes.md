@@ -119,15 +119,16 @@ C++清华：https://www.bilibili.com/video/av20786390
 - 谁可以使用？权限？
 #### 类的成员
 - 常量成员函数 `string isbn() const { return bookNo;}`
-  - const限定this，表示this指向一个常量，避免函数修改
+  - const限定this，表示`const Sales_data *const this`中的第一个const，表明指向一个常量，避免函数修改
   - 这样的声明使得对象本身为常量对象时可以调用该函数
 - 成员函数的编译在其他成员之后，因此无需担心声明顺序
 - public
 - private
 - protected
+- struct 与 class 的唯一区别就在于访问权限
 #### 类的构造函数
 - 无返回类型，仅在创建对象时调用
-- 默认构造函数 `Clock();` ； 强制使用默认构造函数 e.g. `Clock() =default;`  
+- 默认构造函数 `Clock();` ； C++11: 强制使用合成的默认构造函数 e.g. `Clock() =default;`  
 - 初始化列表的使用（比在构造函数中实现更简洁）： 
   ```
   Clock::Clock(int newH, int newM):
@@ -182,8 +183,10 @@ C++清华：https://www.bilibili.com/video/av20786390
 #### 静态函数成员
 - 处理整个类的静态数据成员 `static void showCount();`
 - 一般不处理具体对象的数据；
-#### 友元
+#### 友元friend
 - 友元函数 & 友元类
+  - 非成员函数/类
+  - 在类内部进行集中声明，仍需要对函数进行声明
 - 友元关系为单向的
 #### 对数据的保护——常量
 - 常对象
