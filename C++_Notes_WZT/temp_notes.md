@@ -1,6 +1,8 @@
 ## C++ general learning
 C++清华：https://www.bilibili.com/video/av20786390
 《C++ Primer（第5版）》
+
+---
 ### 数据、表达式
 #### 变量和基本类型
 - 引用 *（primer）* 
@@ -61,6 +63,7 @@ C++清华：https://www.bilibili.com/video/av20786390
     - exception 需默认初始化，其他如`runtime_error` `range_error` 等需用string或字符串初始化
     - 异常类型只定义一个`what()`函数，返回一个异常信息（字符串）
  
+--- 
 ### 函数
 #### 参数传递
 - 使用引用传参，避免拷贝
@@ -109,6 +112,8 @@ C++清华：https://www.bilibili.com/video/av20786390
     //__TIME__ : 文件编译时间
     //__DATE__ : 文件编译日期
     ```
+
+---
 ### 类
 #### 类的设计
 数据抽象和封装：**接口**与**实现**分离
@@ -178,6 +183,7 @@ C++清华：https://www.bilibili.com/video/av20786390
   - 转换限制（无法比较）
   - 可以指定底层类型
 
+---
 ### 数据的共享与保护
 #### 作用域
 - 局部作用域
@@ -218,6 +224,7 @@ C++清华：https://www.bilibili.com/video/av20786390
   - 错误处理
   - 运行环境支持
 
+---
 ### 数组、指针
 #### 数组
 - `类型 数组名[常量表达式][常量表达式]`

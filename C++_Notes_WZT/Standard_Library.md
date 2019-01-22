@@ -1,6 +1,28 @@
 ## Part Ⅱ Standard Library
 C++ Primer 5th edition
-### Cpt.11 关联容器
+
+---
+### Cpt.8 **IO库**
+读取与写入数据
+
+#### IO类
+- 主要的IO库的头文件
+  - iostream: 数据(流)的读写; istream, wistream; ostream, wostream; iostream, wiostream; 等
+  - fstream: 文件读写
+  - sstream: 内存string的读写
+- IO对象不能拷贝或赋值
+  - **不能用于形参或返回值类型**
+- IO类的条件状态
+  - 见表8.2, 
+  - 在调用流对象时可以快速检查其状态, 如`while(cin >> word) {}` 如果输入操作成功则为真
+  - 查询流的状态: strm::iostate类; 典型函数: good(), bad();
+  - 管理流的状态: 
+    - strm.rdstate();//读取状态
+    - strm.setstate(iostate);
+    - strm.clear();
+
+---
+### Cpt.11 **关联容器**
 associative-container: 主要包含map和set两种
 
 按关键字有序保存元素的 |说明  
