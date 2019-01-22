@@ -385,10 +385,11 @@ cout.put(char(88)); // new-style type cast value to char
 cout << char(88) << endl; cout << (char)88 << endl; // old-style type cast value to char
 ```
 7. The answer depends on how large the two types are. If long is 4 bytes, there is no loss.That’s because the largest long value would be about 2 billion, which is 10 dig- its. Because double provides at least 13 significant figures, no rounding would be needed.The long long type, on the other hand, can reach 19 digits, which exceeds the 13 significant figures guaranteed for double.
-8. a. 8 * 9 + 2 is 72 + 2 is 74
-b. 6 * 3 / 4 is 18 / 4 is 4
-c. 3 / 4 * 6 is 0 * 6 is 0
-d. 6.0 * 3 / 4 is 18.0 / 4 is 4.5 e. 15 % 4 is 3
+8. 
+a. 8 * 9 + 2 is 72 + 2 is 74 . 
+b. 6 * 3 / 4 is 18 / 4 is 4 . 
+c. 3 / 4 * 6 is 0 * 6 is 0 . 
+d. 6.0 * 3 / 4 is 18.0 / 4 is 4.5 e. 15 % 4 is 3 . 
 9. Either of the following would work for the first task:
 int pos = (int) x1 + (int) x2; int pos = int(x1) + int(x2);
 To add them as type double and then convert, you could do either of the following: int pos = (int) (x1 + x2);
