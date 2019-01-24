@@ -17,9 +17,42 @@ C++ Primer 5th edition
   - 在调用流对象时可以快速检查其状态, 如`while(cin >> word) {}` 如果输入操作成功则为真
   - 查询流的状态: strm::iostate类; 典型函数: good(), bad();
   - 管理流的状态: 
-    - strm.rdstate();//读取状态
+    - strm.rdstate();   //读取状态
     - strm.setstate(iostate);
     - strm.clear();
+  - 输出缓冲管理
+    - `endl`; `ends`; `flush`; //刷新缓冲区, ends输出一个空字符, flush不输出任何额外字符
+    - `cout << unitbuf; `//在接下来的操作中均立即刷新缓冲区
+    - `cin >> ival;` //cin与cout关联, 因此该操作导致cout立即被刷新
+      - 通过`cin.tie();`获取当前关联流对象的指针, 若有参数则关联新的流对象
+
+#### 文件输入输出
+- 通过`ifstream 和 ofstream`向一个给定文件写入数据
+  - `fstream fstrm(s, mode);` //创建一个对象并打开名为s的文件, mode可选
+  - `fstrm.open(s);`    //若未初始化对象可用open初始化, 但不可open已经打开的文件流, 需要先close(), 在调用流前可以测试是否正常: `if (fstrm) {}`
+  - 在main函数中可以使用循环打开argv[]中的文件
+- 文件模式 mode
+
+文件模式 | 说明
+:--:|:--:
+in | 以读方式打开
+out | 写
+app | 每次操作前均定位到文件尾
+ate | 打开文件后立即定位到尾
+trunc | 截断文件
+binary | 二进制方式IO
+
+  - ofstream默认为out模式, 若仅以out方式打开会截断文件, 为保留文件内容应指定app模式: 
+  - `ofstream app("file1", ofstream::out | ofstream::app);`
+
+#### string流
+特有操作: 
+```
+sstream strm;
+sstream strm(s);
+strm.str();     //返回strm中保存的string的拷贝
+strm.str(s);    //将s拷贝到strm中
+```
 
 ---
 ### Cpt.11 **关联容器**
