@@ -27,8 +27,8 @@ C++ Primer 5th edition
       - 通过`cin.tie();`获取当前关联流对象的指针, 若有参数则关联新的流对象
 
 #### 文件输入输出
-- 通过`ifstream 和 ofstream`向一个给定文件写入数据
-  - `fstream fstrm(s, mode);` //创建一个对象并打开名为s的文件, mode可选
+- 通过`ifstream 和 ofstream`向一个给定文件读取或写入数据, `fstream`同时读写数据
+  - `fstream fstrm(s, mode);` //创建一个fstream对象fstrm, 并打开名为s的文件, mode可选
   - `fstrm.open(s);`    //若未初始化对象可用open初始化, 但不可open已经打开的文件流, 需要先close(), 在调用流前可以测试是否正常: `if (fstrm) {}`
   - 在main函数中可以使用循环打开argv[]中的文件
 - 文件模式 mode
@@ -43,7 +43,8 @@ trunc | 截断文件
 binary | 二进制方式IO
 
   - ofstream默认为out模式, 若仅以out方式打开会截断文件, 为保留文件内容应指定app模式: 
-  - `ofstream app("file1", ofstream::out | ofstream::app);`
+  - `ofstream app2("file1", ofstream::out | ofstream::app);`
+  - 每次open均会设置文件模式
 
 #### string流
 特有操作: 

@@ -88,7 +88,7 @@ C++清华：https://www.bilibili.com/video/av20786390
 - 不能进行异常接口声明
 - 最好定义在头文件中
 #### main函数
-- `int main(int argc, char *argv[]){...};` argv为数组，元素为指向c风格字符串的指针，argv[0]为程序名
+- `int main(int argc, char *argv[]){...};` argv为数组，元素为指向c风格字符串的指针，argv[0]为程序名, argc个参数
 - main函数可以没有返回值
 #### 函数重载
 - 不能以返回值区分重载函数
