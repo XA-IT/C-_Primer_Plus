@@ -54,6 +54,21 @@ sstream strm(s);
 strm.str();     //返回strm中保存的string的拷贝
 strm.str(s);    //将s拷贝到strm中
 ```
+### Cpt.9 **顺序容器**
+#### 顺序容器概述
+- 主要的顺序容器类型: vector, deque, list(双向链表), string, C++11: forward_list(手写单向链表, 无size操作), array 
+  - deque: 双端队列, 与vector访问速度相当, 可快速在首尾增删元素
+- 容器库概览: 
+  - 通用操作: 
+    - 类型别名: iterator, size_type, difference_type, value_type, reference, 当不知道容器中元素类型时使用更方便
+    - 构造函数: `C c(b, e); //将迭代器b和e指定的范围内的元素拷贝到c, 即左闭右开, array不支持`
+    - 赋值与swap
+    - 大小: `c.size();  c.max_size();  c.empty();`
+    - 增删元素
+    - 关系运算
+    - 获取迭代器: `c.begin(); c.end();  c.cbegin();  c.cend(); //获取迭代器常量`, end指向容器的**尾后元素**
+    - 反向容器的成员: `reverse_iterator`, `c.rbegin();`等
+  - array: 具有固定大小, 必须指定容器大小, 可以对整个容器进行拷贝或赋值
 
 ---
 ### Cpt.11 **关联容器**
