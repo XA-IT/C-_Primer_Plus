@@ -69,7 +69,15 @@ strm.str(s);    //将s拷贝到strm中
     - 获取迭代器: `c.begin(); c.end();  c.cbegin();  c.cend(); //获取迭代器常量`, end指向容器的**尾后元素**
     - 反向容器的成员: `reverse_iterator`, `c.rbegin();`等
   - array: 具有固定大小, 必须指定容器大小, 可以对整个容器进行拷贝或赋值
-
+- 容器的定义与初始化
+  - `C c(b, e);//不适用于array` `c seq(n, t); //不适用于string, 以n个t元素初始化`
+- 赋值与swap
+  - `c1=c2; c={a, b, c...};` 
+  - `swap(c1, c2); //不会进行拷贝赋值, 而是直接交换二者的内部数据结构`
+  - `seq.assign(b, e);//以[b, e)中的元素替换seq, 不能指向seq中元素` 关联容器与array不适用, 除string外, assign相比于赋值可以使指向seq的迭代器引用与指针保持有效, 也可以实现从不同但兼容的容器中赋值
+- 容器大小操作
+  - `c.size()` `c.empty()` `c.max_size() //返回大于等于该容器所容纳最大元素数的值`
+  - 
 ---
 ### Cpt.11 **关联容器**
 associative-container: 主要包含map和set两种
