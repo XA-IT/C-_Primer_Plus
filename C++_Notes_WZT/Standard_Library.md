@@ -77,7 +77,16 @@ strm.str(s);    //将s拷贝到strm中
   - `seq.assign(b, e);//以[b, e)中的元素替换seq, 不能指向seq中元素` 关联容器与array不适用, 除string外, assign相比于赋值可以使指向seq的迭代器引用与指针保持有效, 也可以实现从不同但兼容的容器中赋值
 - 容器大小操作
   - `c.size()` `c.empty()` `c.max_size() //返回大于等于该容器所容纳最大元素数的值`
-  - 
+
+- **顺序容器**操作
+  - 添加元素
+    - `c.push_back(t); c.emplace_back(args);` `c.push_front(t);`
+    - `slist.insert(iter, "hello!"); //将hello插入到iter所指位置之前` `slist.insert(iter, 10, "hi!"); //插入10个hi` `slist.insert(iter, iter2begin, 2end);`
+      - insert将返回指向新加入元素的iter, 在旧版本中其他Insert版本将返回void
+      - C++11: 接收元素个数或范围的insert将返回指向第一个新加入元素的iter
+    - `c.emplace_back(argv); //以argv为参数调用元素的构造函数, 而非拷贝元素`
+  - 访问元素
+    - 
 ---
 ### Cpt.11 **关联容器**
 associative-container: 主要包含map和set两种
