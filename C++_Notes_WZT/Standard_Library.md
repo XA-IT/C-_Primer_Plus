@@ -83,10 +83,40 @@ strm.str(s);    //将s拷贝到strm中
     - `c.push_back(t); c.emplace_back(args);` `c.push_front(t);`
     - `slist.insert(iter, "hello!"); //将hello插入到iter所指位置之前` `slist.insert(iter, 10, "hi!"); //插入10个hi` `slist.insert(iter, iter2begin, 2end);`
       - insert将返回指向新加入元素的iter, 在旧版本中其他Insert版本将返回void
-      - C++11: 接收元素个数或范围的insert将返回指向第一个新加入元素的iter
+      - C++11: 接收元素个数或范围的insert也将返回指向第一个新加入元素的iter
     - `c.emplace_back(argv); //以argv为参数调用元素的构造函数, 而非拷贝元素`
   - 访问元素
-    - 
+    - `c.front(); ` 与 `c.back();`
+    - `c.at(0);` 代替 `c[0];`, 会提示下标越界问题
+  - 删除元素
+    - `c.pop_back();` `c.pop_front();`, 返回void, 若c为空则行为未定义
+    - `c.erase(p);` `c.erase(b,e);` 删除b到e之前的元素, 返回删除元素的下一个位置
+  - 改变容器大小 `ilist.resize(10, -1);` //若ilist元素少于10个则以-1补全
+  - 注意对容器的操作可能会使迭代器**失效**
+    - 对于容器中元素的增删都会影响, 当删除元素时, c.end()总是会失效, 
+
+
+- vector 与 string的高效增长
+  - 其分配的内存空间将大于当前需求的:
+    - `c.shrink_to_fit()`将capacity()缩小至size();
+    - `c.capacity()` and `c.reserve(n)`显示c的容量与申请预留n个元素的空间
+  - 其原则是只有**迫不得已**才会重新分配新的内存空间
+
+- string 的其他操作
+  - string的其他构造方法
+    - `string s(cp, n)` //以cp的前n个字符构造s, 
+    - `string s(s2, pos2)` //以s2中pos2开始的字符构造, 
+    - `string s(s2, pos2, len2)` //pos2开始的len2个字符
+    - 注意: const char* 向 string转换或构造时, 若无计数值限制则需遇到'\0'才会停止
+  - 改变string内容的其他方法, assign, insert, erase; append, replace;
+  - string中的搜索
+  - 比较--s.compare函数
+  - 数值转换
+    - `string s = to_string(i);` //将整数i转换
+    - `double d = stod(s);` //转换为double
+
+- 容器适配器
+  - stack, queue, priority_queue
 ---
 ### Cpt.11 **关联容器**
 associative-container: 主要包含map和set两种
