@@ -48,12 +48,13 @@ binary | 二进制方式IO
 
 #### string流
 特有操作: 
-```
+```cpp
 sstream strm;
 sstream strm(s);
 strm.str();     //返回strm中保存的string的拷贝
 strm.str(s);    //将s拷贝到strm中
 ```
+---
 ### Cpt.9 **顺序容器**
 #### 顺序容器概述
 - 主要的顺序容器类型: vector, deque, list(双向链表), string, C++11: forward_list(手写单向链表, 无size操作), array 
@@ -131,6 +132,28 @@ strm.str(s);    //将s拷贝到strm中
     - `replace_copy(ilist.cbegin(), ilist.cend(), back_inserter(ivec), 0, 42);`
   - **重排元素**的算法, sort, unique等
     - unique(b, e): 返回最后一个不重复元素之后的迭代器
+    - erase等
+
+#### 定制操作
+- 向算法传递函数
+  - 传递一个**谓词(predicate)**, 是一个表达式, 其返回结果是一个bool, STL中的谓词有一元和二元两类
+    - `sort(b, e, func); //func为谓词, 即一个函数, 用于比较`, 
+    - `stable_sort(b, e, func); //保持相等元素的原始顺序`
+    - `partition(b, e, predicate), //使得满足pre的在前, 为false的在后, 返回最后一个为true之后的元素位置`
+
+- **lambda表达式** (C++ 11)
+  - **调用运算符(就是括号())**, 对于可以使用该符号的对象称为**可调用对象**, 典型例子: 函数与函数指针, 以及重载函数调用运算符的类, 以及**lambda expression**
+    - 表示一个可调用的代码单元, 无名称的内联函数, 可能定义在函数内部
+  - 典型形式: `[capture list] (parameter list) -> return type { function body } `
+    - 捕获列表是lambda所在函数定义的局部变量列表, 通常为空; 其他与普通函数类似, 但必须使用尾置返回类型
+    - 捕获列表可为空但不可缺省, 函数体亦不可缺省, 其他可以忽略, 返回值在函数体仅有一条return语句时自动推断, 否则**默认为void**: `auto f = [] { return 42; };`
+    - 向lambda传递参数时不能有默认参数
+    - 调用find_if(b, e, lmd), 返回第一个使lmd为true的迭代器或e的拷贝
+    - 调用for_each(b, e, lmd), 对于输入序列的每一个元素都调用lmd
+  - 捕获与返回: 捕获列表的参数的值传递(即拷贝)是在lambda创建时就已完成的, 而非在调用时, 与函数不同; 引用传递需要注意引用的存在必须久于lambda, 如果可能, 尽量避免使用, 尽量减少捕获的数据量
+    - **隐式捕获**, 由编译器推断需要的变量: `[&]` 或 `[=]`, 可以与显式捕获混用, 但隐式必须在最前, 且用&则不能引用传递, 用=不能值传递
+    - 可变lambda, 对于被捕获并拷贝的值可以通过mutable来改变, 对于引用传值需保证引用的对象非const: 
+      - `auto f = [v1] () mutable { return ++v1; } ;`
 
 
 ---
