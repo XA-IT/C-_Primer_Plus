@@ -2,7 +2,7 @@
 C++ Primer 5th edition
 
 ---
-### Cpt.8 **IO库**
+### Cpt.08 **IO库**
 读取与写入数据
 
 #### IO类
@@ -54,8 +54,10 @@ sstream strm(s);
 strm.str();     //返回strm中保存的string的拷贝
 strm.str(s);    //将s拷贝到strm中
 ```
+
 ---
-### Cpt.9 **顺序容器**
+
+### Cpt.09 **顺序容器**
 #### 顺序容器概述
 - 主要的顺序容器类型: vector, deque, list(双向链表), string, C++11: forward_list(手写单向链表, 无size操作), array 
   - deque: 双端队列, 与vector访问速度相当, 可快速在首尾增删元素
@@ -120,6 +122,7 @@ strm.str(s);    //将s拷贝到strm中
 - stack, queue, priority_queue
 
 ---
+
 ### Cpt.10 泛型算法
 #### 概述
 - 借助迭代器进行操作, 输入前两个参数往往是两个迭代器表示范围, 不依赖于容器类型, 但其具体的算法可能与容器中元素类型的操作相关, 如比较==, <等
@@ -132,7 +135,7 @@ strm.str(s);    //将s拷贝到strm中
     - `replace_copy(ilist.cbegin(), ilist.cend(), back_inserter(ivec), 0, 42);`
   - **重排元素**的算法, sort, unique等
     - `unique(b, e)`: 返回最后一个不重复元素之后的迭代器
-    - erase等
+    - `erase`等
 
 #### 定制操作
 - 向算法传递函数
@@ -173,7 +176,12 @@ strm.str(s);    //将s拷贝到strm中
     - `vector<int> vec(in_it, eof);`  //eof为空, 表示尾后位置
     - 使用流迭代器时允许懒惰求值, 仅在第一次解引用迭代器前进行读值
   - ostream_iterator:
-    - 
+    - `ostream_iterator<T> out(os, d);` //d可选, 表示c风格字符串, out 为流迭代器
+    - `*out, out++, ++out`对out不做任何事, 返回out本身, 但可以写出以便于后期修改:
+      - `*out++ = e;`
+    - 使用`copy`打印元素: 
+      - `ostream_itreator<T> out_iter(cout, " ");`
+      - `copy(vec.begin(), vec.end(), out_iter); cout << endl;`
 
 
 ---
