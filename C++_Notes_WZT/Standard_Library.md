@@ -2,6 +2,7 @@
 C++ Primer 5th edition
 
 ---
+
 ### Cpt.08 **IO库**
 读取与写入数据
 
@@ -33,14 +34,14 @@ C++ Primer 5th edition
   - 在main函数中可以使用循环打开argv[]中的文件
 - 文件模式 mode
 
-| 文件模式 |           说明           |
-| :------: | :----------------------: |
-|    in    |       以读方式打开       |
-|   out    |            写            |
-|   app    | 每次操作前均定位到文件尾 |
-|   ate    |  打开文件后立即定位到尾  |
-|  trunc   |         截断文件         |
-|  binary  |       二进制方式IO       |
+  | 文件模式 |           说明           |
+  | :------: | :----------------------: |
+  |    in    |       以读方式打开       |
+  |   out    |            写            |
+  |   app    | 每次操作前均定位到文件尾 |
+  |   ate    |  打开文件后立即定位到尾  |
+  |  trunc   |         截断文件         |
+  |  binary  |       二进制方式IO       |
 
   - ofstream默认为out模式, 若仅以out方式打开会截断文件, 为保留文件内容应指定app模式: 
   - `ofstream app2("file1", ofstream::out | ofstream::app);`
@@ -111,7 +112,7 @@ strm.str(s);    //将s拷贝到strm中
   - `string s(s2, pos2)` //以s2中pos2开始的字符构造, 
   - `string s(s2, pos2, len2)` //pos2开始的len2个字符
   - 注意: const char* 向 string转换或构造时, 若无计数值限制则需遇到'\0'才会停止
-- 改变string内容的其他方法, assign, insert, erase; append, replace;
+- 改变string内容的其他方法, assign, insert, erase; append, replace(range, args);
 - string中的搜索
 - 比较--s.compare函数
 - 数值转换
@@ -174,17 +175,53 @@ strm.str(s);    //将s拷贝到strm中
   - istream_iterator: 
     - `istream_iterator<int> in_it(cin), eof;`
     - `vector<int> vec(in_it, eof);`  //eof为空, 表示尾后位置
+    - `*in`, 返回从流中读取的值, `++in_it; in_it++`  //读取下一个值并返回迭代器
     - 使用流迭代器时允许懒惰求值, 仅在第一次解引用迭代器前进行读值
   - ostream_iterator:
     - `ostream_iterator<T> out(os, d);` //d可选, 表示c风格字符串, out 为流迭代器
     - `*out, out++, ++out`对out不做任何事, 返回out本身, 但可以写出以便于后期修改:
       - `*out++ = e;`
     - 使用`copy`打印元素: 
-      - `ostream_itreator<T> out_iter(cout, " ");`
-      - `copy(vec.begin(), vec.end(), out_iter); cout << endl;`
+      ```cpp
+      ostream_itreator<T> out_iter(cout, " ");
+      copy(vec.begin(), vec.end(), out_iter); cout << endl;
+      ```
+- 反向迭代器
+  - 除了forward_list外都支持, 可用`rbegin, rend, crbegin, crend`等获得反向迭代器
+    - 实现降序排列: `sort(vec.rbegin(), vec.rend());`
+    - 倒序查找: `auto rcomma = find(vec.crbegin(), vec.crend());`//注意, comma为反向迭代器!, 若想正向输出, 则:
+    - 使用crbegin后想重新正向输出: `rcomma.base();` //指向rcomma相邻的正向的首个元素
 
+#### 泛型算法结构
+- 迭代器类别: 按操作分类
+  - 输入迭代器, 输出迭代器, (单遍递增扫描); 前向迭代器, 双向迭代器, 随机访问迭代器(多遍扫描)
+  - 除了输出迭代器, 高层类别的迭代器将支持低层的全部操作, 对于传递了错误类型的迭代器的情况编译器一般**不会提示**
+  - *输入迭代器* : 
+    - 支持==, !=, ++, (*), (->)等操作
+  - *输出迭代器* :
+    - 支持(++), (*)等运算
+  - *前向迭代器* ; *双向迭代器*
+  - *随机访问迭代器*: 
+    - 比较相对位置(<, <=等), 整数值运算表移动, 求距离, 
+    - 下标运算(iter[n], 与*(iter[n])等价)
+- 算法形参模式: `alg(b, e, b2, e2, other args);`
+  - `alg(b, e, dest, other args);`: 默认目标空间足够, 一般绑定一个插入迭代器或输出流迭代器, 确保空间安全
+- 算法命名规范
+  - 对于多传递一个谓词的情况, 一些算法选择重载
+  - 对于用谓词替代元素值的情况, 选择加上"_if": `find(b, e, val);` 与 `find_if(b, e, pred); //寻找使pred为真的首个元素位置`
+  - 对于将元素拷贝到别处的情况, 加上"_copy"
+
+#### 特定容器算法
+- 对于list与forward_list, 需要优先使用成员函数版本的算法(由于迭代器不能随机访问等原因)
+  ```cpp
+  lst.merge(lst2, pred);  //合并两个有序链表
+  lst.remove(val);        //
+  lst.reverse();
+  lst.sort();
+  ```
 
 ---
+
 ### Cpt.11 **关联容器**
 associative-container: 主要包含map和set两种
 
