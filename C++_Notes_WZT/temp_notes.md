@@ -82,6 +82,7 @@ C++清华：https://www.bilibili.com/video/av20786390
   - `int (*func(int i)) [10];`
   - C++11: 尾置返回类型 `auto func(int i) -> int (*)[10];` 返回一个指针, 其指向含有十个元素的数组
   - C++11: decltype: `decltype(odd) *func(int i){};` odd为前文声明的数组，返回值为指针
+    - 若想返回指向函数的指针, 需要加*: `decltype(func1) * func2(int, int) {} `
 #### 内联函数
 - 不能含有循环与switch语句
 - 定义需在调用之前

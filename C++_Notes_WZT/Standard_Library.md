@@ -154,7 +154,7 @@ strm.str(s);    //将s拷贝到strm中
     - 向lambda传递参数时不能有默认参数
     - 调用`find_if(b, e, lmd)`, 返回第一个使lmd为true的迭代器或e的拷贝, lmd为一元谓词
     - 调用`for_each(b, e, lmd)`, 对于输入序列的每一个元素都调用lmd
-  - 捕获与返回: 捕获列表的参数的值传递(即拷贝)是在lambda创建时就已完成的, 而非在调用时, 与函数不同; 引用传递需要注意引用的存在必须久于lambda, 如果可能, 尽量避免使用, 尽量减少捕获的数据量
+  - 捕获与返回: 捕获列表的参数的值传递(即拷贝)是在lambda**创建**时就已完成的, 而非在调用时, 与函数不同; 引用传递需要注意引用的存在必须久于lambda, 如果可能, 尽量避免使用, 尽量减少捕获的数据量
     - **隐式捕获**, 由编译器推断需要的变量: `[&]` 或 `[=]`, 可以与显式捕获混用, 但隐式必须在最前, 且用&则不能引用传递, 用=不能值传递
     - *可变*lambda, 对于被捕获并拷贝的值可以通过mutable来改变, 对于引用传值需保证引用的对象非const: 
       - `auto f = [v1] () mutable { return ++v1; } ;`
@@ -251,7 +251,7 @@ associative-container: 主要包含map和set两种
   - 凡是定义了“行为正常”的<运算的类型均可作为有序容器的关键字
   - 比较类型可以通过函数指针来定义：
   - `bool compareISBN(const Sales_data &lhs, const Sales_data &rhs) { return lhs.isbn() < rhs.isbn();}`
-  - `multiset<Sales_data, decltype(compareISBN) *> bookstore(compareISBN);//在<>中支出自定义操作的类型，对于函数指针其声明须加*，compareISBN为构造函数的参数。`
+  - `multiset<Sales_data, decltype(compareISBN) *> bookstore(compareISBN);`//在<>中支出自定义操作的类型，对于函数指针其声明须加*，compareISBN为构造函数的参数。
 ##### pair类型
 - `pair<string, string> author{"James", "Joyce"};//初始化可省略`
 - 成员为public类型，分别为first和second
