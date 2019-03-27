@@ -251,7 +251,7 @@ associative-container: 主要包含map和set两种
   - 凡是定义了“行为正常”的<运算的类型均可作为有序容器的关键字
   - 比较类型可以通过函数指针来定义：
   - `bool compareISBN(const Sales_data &lhs, const Sales_data &rhs) { return lhs.isbn() < rhs.isbn();}`
-  - `multiset<Sales_data, decltype(compareISBN) *> bookstore(compareISBN);`//在<>中支出自定义操作的类型，对于函数指针其声明须加*，compareISBN为构造函数的参数。
+  - `multiset<Sales_data, decltype(compareISBN) *> bookstore(compareISBN);`//需在<>中指出自定义操作的类型，对于函数指针其声明须加*，compareISBN为构造函数的参数。
 ##### pair类型
 - `pair<string, string> author{"James", "Joyce"};//初始化可省略`
 - 成员为public类型，分别为first和second
@@ -260,7 +260,7 @@ associative-container: 主要包含map和set两种
   - p.first; p.second;
   - p1 relop p2;
   
-##### 关联容器操作
+#### 关联容器操作
 - 在关联容器中额外有如下类型别名：
   - key_type
   - mapped_type 关键字关联的类型 `map<string, int>::mapped_type v5; //v5是一个int`
@@ -280,4 +280,56 @@ associative-container: 主要包含map和set两种
   - 其返回值为mapped_type，因此可直接修改值的大小，但与迭代器返回的value_type并不相同
 - 访问元素
   - 查找是否存在： find(v) //返回迭代器, count(v)//返回次数
-  - `lower_bound(k)` `upper_bound(k)` `equal_range(k)/*返回一个迭代器pair，指向关键字符合k的元素的范围，不存在则均为c.end()`
+  - `lower_bound(k)` `upper_bound(k)` `equal_range(k)`//*返回一个迭代器pair，指向关键字符合k的元素的范围，不存在则均为可安全插入元素的位置, 可能为尾后迭代器
+
+#### 无序容器, C++11
+to be continue;
+
+### Cpt.12 动态内存
+#### 动态内存与智能指针
+除了静态内存与栈内存, 每个程序拥有一个内存池, 称为堆, 用于存储动态分配的对象, 生存期完全由程序来控制;
+- 使用`new`和`delete`来初始化对象, 分配空间和销毁对象, 释放内存
+  - 为了防止内存的泄露与提前释放, C++11 推行了智能指针shared_ptr(允许多个指针指向同一对象), unique_ptr, weak_ptr(指向share所管理的对象); 都是模板
+- shared_ptr类
+  - 初始化时指针为空: `shared_ptr<T> sp`; 获取p保存的指针: `p.get()`//谨慎使用, p指向的空间可能被释放
+  - 交换保存的指针: `swap(p, q); p.swap(q);`
+  - `p.reset(q)` //q可省, 令p指向q
+  - 独有操作: 
+    - `make_shared<T>(args)` //使用args初始化一个T的对象, 返回指向其的sp
+      - `auto p1 = make_shared<vector<string>>();`
+    - `shared_ptr<T>p(q)` //将q拷贝给p, q指向对象的计数器加一, 反之当q指向别处时原对象-1, 计数器变为0时会自动释放管理的对象
+      - 如果sp不再使用应该将其销毁, 否则内存将不能被释放, 尤其是在容器中很可能不再使用, 应及时erase
+    - `p.use_count();`, `p.unique()` //当count为1时为true
+  - 使用动态内存的场景: 
+    - 在多个对象间共享数据; 对于对象数量不确定; 对于对象类型不确定;
+  - 对于对象的拷贝, 赋值与销毁, 会同样作用于shared_ptr上, 当赋值时左侧的引用计数--, 右侧++, 当计数器为0时, 内存被销毁
+- 直接管理内存 new 和 delete
+  - 使用new分配和初始化对象:
+    - 返回一个指针: `int *p1 = new int();` //对于内置类型与组合类型需显式初始化, 这里直接初始化为0
+    - C++11: 使用auto推断要分配的类型: `auto p1 = new auto(obj);` //p1指向一个与obj相同类型的对象并用obj初始化
+    - 可以动态分配const对象: `const int *pci = new const int(1024);`
+    - 内存耗尽: 抛出bad_alloc异常, 使用**定位new**形式阻止抛出: `int *p2 = new (nothrow) int;` //分配失败会返回空指针
+  - 使用delete释放动态内存 
+    - 释放并非new分配的内存(如为静态对象的局部变量)或释放一个已经释放过的内存的行为将是未定义的!!
+    - delete后置为nullptr, 仅可保护当前指针, 对于其他指向原内存的指针则无能为力
+- shared_ptr 与 new 结合使用
+  - shared_ptr的构造函数是`explicit`的, `shared_ptr<int> p1 = new int(1024);` //error! 不允许从内置指针到智能指针的隐式转换; 需要直接初始化;
+  - 不要混合使用`T* p1`和`shared_ptr<T> p2`, 很有可能其指向同一内存, 被p2自动释放导致p1空悬!
+  - 也不要使用p.get()为另一个智能指针赋值
+- 自定义释放操作:
+  - 对于缺省析构函数的对象而言, 有时需要我们使用自己的析构函数, 一个删除器(deleter): `shared_ptr<T> p(q, d)`
+    ```cpp
+    void end_connection(connection *p) { disconnect(*p); } //disconnect为断开连接的函数
+    void f(dest &d) {
+        connection c = connect(&d);
+        shared_ptr<connection> p(&c, end_connection); //end_connection为一个可调用对象
+    }
+    ``` 
+- unique_ptr
+  - 独有操作:
+    - `unique_ptr<T, D> u(d)` //使用类型为D的对象d释放指针, 由于D将影响u的构造, D需要明确, (d)可以先不写
+      - `unique_ptr<connection, decltype(end_connection) *> p(&c, end_connection);`
+    - `u = nullptr;` //释放u指向的对象
+    - `u.release();` //u放弃对指针的控制权, 返回指针并将u本身置空
+- weak_ptr
+  - 一种弱指针, 不控制所指对象生存期, 一旦shared_ptr销毁, 对象亦将会被释放
