@@ -333,3 +333,29 @@ to be continue;
     - `u.release();` //u放弃对指针的控制权, 返回指针并将u本身置空
 - weak_ptr
   - 一种弱指针, 不控制所指对象生存期, 一旦shared_ptr销毁, 对象亦将会被释放
+
+#### 动态数组
+一次性分配一个对象数组(注意, 大多数情况下使用标准库容器的效果更好, 更安全)
+
+- new 和 数组
+  - `int *p = new int[get_size()];` //new分配一个动态数组, 返回指向数组元素类型的指针
+    - 注意, 分配的内存**并不是**一个数组类型, 不能调用begin, end以及范围for语句;
+  - 初始化:
+    - `int *pia = new int[10]();` //后跟一对括号表示执行值初始化(不能指定值)
+    - 不能使用auto分配数组, 因为不能在括号中使用初始化器
+  - 释放: 
+    - `delete [] pa;`
+  - 使用unique_ptr来管理动态数组:
+    - ```cpp
+      unique<int[]> up(new int[10]);
+      up.release();
+      ```
+    - 可以使用下标访问元素: `up[i] = 3;`
+  - 使用shared_ptr来管理:
+    - ```cpp
+      shared_ptr<int> sp(new int[10], [] (int *p) { delete[] p; });
+      //使用sp必须提供一个删除器
+      sp.reset();
+      //不支持通过下标访问元素, 亦不支持算术运算
+      *(sp.get() + 1) = 5;  //需转换为内置指针!
+      ```
