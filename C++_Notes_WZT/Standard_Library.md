@@ -159,7 +159,7 @@ strm.str(s);    //将s拷贝到strm中
     - *可变*lambda, 对于被捕获并拷贝的值可以通过mutable来改变, 对于引用传值需保证引用的对象非const: 
       - `auto f = [v1] () mutable { return ++v1; } ;`
     - 调用`transform(b1, e1, b2, ldm);`, 将输入序列依次执行lambda并写入b2表示为起点的迭代器
-    - **返回**类型, 当超过一条return语句时, 默认为void, 若想指定需尾置返回类型: 
+    - **返回**类型, 当超过一条return语句时, 默认为void, 若想指定需**尾置**返回类型: 
       - `transform(vi.begin(), vi.end(), vi.begin(), [] (int i) -> int  { if (i < 0) return -i; return i; });`
   - 参数绑定: (C++ 11:)当函数参数多于谓词限制时考虑使用bind函数解决:
     - `auto newCallable = bind(callable, arg_list);`
