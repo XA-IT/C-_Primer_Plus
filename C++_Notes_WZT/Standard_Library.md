@@ -342,20 +342,42 @@ to be continue;
     - 注意, 分配的内存**并不是**一个数组类型, 不能调用begin, end以及范围for语句;
   - 初始化:
     - `int *pia = new int[10]();` //后跟一对括号表示执行值初始化(不能指定值)
-    - 不能使用auto分配数组, 因为不能在括号中使用初始化器
+    - 不能使用auto分配数组, 因为不能在括号中使用初始化器 
+      - // (`auto p1 = new auto(obj); //对于动态数组不适用`)
   - 释放: 
     - `delete [] pa;`
   - 使用unique_ptr来管理动态数组:
+    - 智能指针指向数组本身, 而非首个元素
     - ```cpp
-      unique<int[]> up(new int[10]);
+      unique_ptr<int[]> up(new int[10]);
       up.release();
       ```
     - 可以使用下标访问元素: `up[i] = 3;`
   - 使用shared_ptr来管理:
     - ```cpp
       shared_ptr<int> sp(new int[10], [] (int *p) { delete[] p; });
-      //使用sp必须提供一个删除器
+      //使用sp必须提供一个删除器, 这里使用lambda表达式提供
       sp.reset();
       //不支持通过下标访问元素, 亦不支持算术运算
       *(sp.get() + 1) = 5;  //需转换为内置指针!
       ```
+- `allocator`类
+  - 将内存分配与对象构造分离, 分配内存后自行手动初始化
+  - allocator定义在`<memory>文件中`, 是一个模板:
+    ```cpp
+    allocator<string> alloc;            //用于分配string的分配器
+    auto const p = alloc.allocate(n);
+    alloc.deallocate(p, n);             //用于释放从p开始的内存
+    alloc.construct(p, args);           //以args为参数构造一个T对象, 存在p指向的T*内存中(C++11)
+    alloc.destory(p);                   //销毁对象后内存并未释放, 需要deallocate
+    ``` 
+  - 拷贝和填充未初始化的内存
+    ```cpp
+    uninitialized_copy(b, e, b2);       //b2指向的内存未初始化, 由b, e来初始化, 返回最后一个构造元素的位置
+    uninitialized_copy_n(b, n, b2);     //从b开始的n个元素进行拷贝
+    uninitialized_fill(b, e, t);        //b, e范围内均用t进行拷贝初始化
+    uninitialized_fill_n();             
+    ``` 
+
+#### 使用标准库: 一个文本查询程序
+见CPP coding2\WZT\cpp primer 12_27_1.cpp
