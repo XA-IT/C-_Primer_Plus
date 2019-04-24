@@ -380,4 +380,4 @@ to be continue;
     ``` 
 
 #### 使用标准库: 一个文本查询程序
-见CPP coding2\WZT\cpp primer 12_27_1.cpp
+见CPP coding\C++_Notes_WZT\tryit\cpp primer 12_27_1.cpp
