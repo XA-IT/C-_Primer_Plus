@@ -88,6 +88,22 @@ C++ Primer 5th edition
 不需要控制资源分配的类也可能需要拷贝控制成员
 
 #### 动态内存管理类
+- 实现一个类似于`vector<string>`的类`StrVec`
+  - 主要数据成员: 
+    - elements, 分配的内存的首元素
+    - first_free
+    - cap, 指向分配内存末尾之后的位置
+    - 静态成员`alloc`: 一个`allocator<string>`
+  - 主要成员函数:
+    - `alloc_n_copy`: 分配内存并拷贝n个元素进去
+    - `free` 销毁构造的元素, 释放内存
+    - `chk_n_alloc`: 保证`StrVec`对象有至少一个新元素的空间, 否则reallocate分配新内存
+    - `reallocate`  
+    [实现文件](tryit/cpp_primer_13_39_1.cpp) 
+  - 关于`reallocate`:
+    - 拷贝操作是多余的, 因为拷贝完成后不再会使用原数据, 这种操作被专门称为**移动**
+    - C++11: `std::move()`
+
 
 ### Cpt.14 **重载运算与类型转换**
 重载的运算符是具有特殊名字的函数, 其名字由关键字**operator**和其后要定义的运算符号组成.
