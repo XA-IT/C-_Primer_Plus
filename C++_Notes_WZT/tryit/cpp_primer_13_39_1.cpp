@@ -27,10 +27,13 @@ StrVec::alloc_n_copy(const string *b, const string *e) {
 
 void StrVec::free() {
 	if (elements) {
-		// 销毁元素, 逆序
-		for (auto p = first_free; p != elements; ) {
-			alloc.destroy(--p);
-		}
+		// // 销毁元素, 逆序
+		// for (auto p = first_free; p != elements; ) {
+		// 	alloc.destroy(--p);
+		// }
+		// 上述循环的另一形式: 
+		for_each(elements, first_free, 
+				 [this](string &rhs) { alloc.destory(&rhs); });
 		alloc.deallocate(elements, cap - elements);
 	}
 }
