@@ -283,6 +283,13 @@ associative-container: 主要包含map和set两种
   - `lower_bound(k)` `upper_bound(k)` `equal_range(k)`//*返回一个迭代器pair，指向关键字符合k的元素的范围，不存在则均为可安全插入元素的位置, 可能为尾后迭代器
 
 #### 无序容器, C++11
+- set
+  ```cpp  
+  template < class T,                        // set::key_type/value_type
+            class Compare = less<T>,        // set::key_compare/value_compare
+            class Alloc = allocator<T>      // set::allocator_type
+            > class set;
+  ```
 to be continue;
 
 ### Cpt.12 动态内存
