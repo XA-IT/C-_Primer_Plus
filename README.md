@@ -2,7 +2,12 @@
 
 C++类  
 《C++ Primer Plus》  
-《C++ Primer》  
+《C++ Primer》
+《A tour of C++》
+《Effective C++》
+《More Effective C++》
+《Advanced C++》
+《Inside the C++ Objects Model》
 《深度探索C++对象模型》  
 《STL源码剖析》  
 
