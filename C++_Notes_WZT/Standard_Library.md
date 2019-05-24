@@ -283,6 +283,13 @@ associative-container: 主要包含map和set两种
   - `lower_bound(k)` `upper_bound(k)` `equal_range(k)`//*返回一个迭代器pair，指向关键字符合k的元素的范围，不存在则均为可安全插入元素的位置, 可能为尾后迭代器
 
 #### 无序容器, C++11
+- set
+  ```cpp  
+  template < class T,                        // set::key_type/value_type
+            class Compare = less<T>,        // set::key_compare/value_compare
+            class Alloc = allocator<T>      // set::allocator_type
+            > class set;
+  ```
 to be continue;
 
 ### Cpt.12 动态内存
@@ -369,15 +376,16 @@ to be continue;
     auto const p = alloc.allocate(n);
     alloc.deallocate(p, n);             //用于释放从p开始的内存
     alloc.construct(p, args);           //以args为参数构造一个T对象, 存在p指向的T*内存中(C++11)
-    alloc.destory(p);                   //销毁对象后内存并未释放, 需要deallocate
+    alloc.destory(p);                   //销毁对象(调用析构函数)后内存并未释放, 需要deallocate
     ``` 
   - 拷贝和填充未初始化的内存
     ```cpp
-    uninitialized_copy(b, e, b2);       //b2指向的内存未初始化, 由b, e来初始化, 返回最后一个构造元素的位置
+    uninitialized_copy(b, e, b2);       //b2指向的内存未初始化, 由b, e来初始化, 
+                                        //返回最后一个构造元素之后的位置
     uninitialized_copy_n(b, n, b2);     //从b开始的n个元素进行拷贝
     uninitialized_fill(b, e, t);        //b, e范围内均用t进行拷贝初始化
     uninitialized_fill_n();             
     ``` 
 
 #### 使用标准库: 一个文本查询程序
-见CPP coding2\WZT\cpp primer 12_27_1.cpp
+见[实现文件](tryit\cpp_primer_12_27_1.cpp)
