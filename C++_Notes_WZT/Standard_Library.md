@@ -163,6 +163,7 @@ strm.str(s);    //将s拷贝到strm中
       - `transform(vi.begin(), vi.end(), vi.begin(), [] (int i) -> int  { if (i < 0) return -i; return i; });`
   - 参数绑定: (C++ 11:)当函数参数多于谓词限制时考虑使用bind函数解决:
     - `auto newCallable = bind(callable, arg_list);`
+    - `auto wc = find_if(words.begin(), words.end(), bind(check_size, _1, sz);` //其中check_size为定义的判断函数, 需要传入两个参数, 第二个参数(size_t sz)由sz提供, 并通过bind绑定传入, _1表示第一个参数由匿名函数传入
     - >to be continue..
 
 #### 迭代器再探
