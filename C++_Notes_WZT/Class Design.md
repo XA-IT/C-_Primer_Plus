@@ -229,7 +229,7 @@ StrVec::StrVec(StrVec &&s) noexcept:    // 移动构造函数本身不应抛出�
 #### 函数调用运算符: 使对象可以作为函数进行调用
 - 注意是调用一个对象, 而非直接调用类型
 - 必须为成员函数, 定义了函数调用运算符的对象为 函数对象
-- 常用作泛型算法的实参: (类的未命名对象)
+##### 常用作泛型算法的实参: (类的未命名对象)
     ```cpp
     class PrintString {
     public:
@@ -243,8 +243,9 @@ StrVec::StrVec(StrVec &&s) noexcept:    // 移动构造函数本身不应抛出�
     ```
 - lambda是函数对象(未命名类的未命名对象)
   - 其值捕获相当于在类中以对应数量的数据成员进行初始化, 但该合成类将不具有默认构造函数等
-- 标准库定义的函数对象
-- **头文件**: `<functional>`
+##### 标准库定义的函数对象
+  - 定义了一组模板类, 如下所示
+  - **头文件**: `<functional>`
 - 定义成模板的形式, 如`plus<string> strAdd;`实现对string的加法
     |         算术         |         关系         |        逻辑         |
     | :------------------: | :------------------: | :-----------------: |
@@ -253,10 +254,11 @@ StrVec::StrVec(StrVec &&s) noexcept:    // 移动构造函数本身不应抛出�
     |  `mulitplies<Type>`  |   `greater<Type>`    | `logical_not<Type>` |
     |   `以及divides, `    | `less, less_equal等` |
     | `modulus(%), negate` |
-- 使用标注库函数对象: `sort(svec.begin(), svec.end(), greater<string>());`//降序排列
+- 使用标准库函数对象: `sort(svec.begin(), svec.end(), greater<string>());`//降序排列, 注意函数调用运算符()
     - 甚至可以比较指针: 
-    - `sort(nameTable.begin(), nameTable.end(), less<string*>());`//其中nameTable的元素为string*
-- 可调用对象与function
+    - `sort(nameTable.begin(), nameTable.end(), less<string *>());`//其中nameTable的元素为string *
+    - 关联容器set和map中默认使用`less<key_type>`来对元素排序
+##### 可调用对象与function
 - 可调用对象: 函数/函数指针/lambda表达式/bind创建对象/重载函数调用运算符的类
 - 可能共享相同的**调用形式**: 如`int(int, int)`表示接受两个int返回一个int
     ```cpp
@@ -269,7 +271,7 @@ StrVec::StrVec(StrVec &&s) noexcept:    // 移动构造函数本身不应抛出�
     }   //分别定义了加法/取模/除法
     ```
     - 对于相同调用形式的可调用对象, 可以定义一个**函数表**(function table)用于存储指向这些对象的"指针", 可以通过`map`实现:
-    - `map<string, int(*) (int, int)> binops;` //这里只能直接存放函数指针add
+    - `map<string, int(*) (int, int)> binops;` //这里只能直接存放**函数指针**add, 对于其他形式的函数需要转换类型
 - 标准库function类型
     - `function`的操作:
     - `function<T> f;` `function<T> f(obj);`// f存储可调用对象obj的副本
@@ -281,7 +283,7 @@ StrVec::StrVec(StrVec &&s) noexcept:    // 移动构造函数本身不应抛出�
     - `function<int (int, int)> f2 = divide();`
     - 从而使`map`变为`map<string, function<int (int, int)>> binops;`
     - 对于重载过的函数不能直接放入function对象中, 因为无法通过名字来确定版本
-        - 需要使用函数指针或lambda表达式来限定函数版本
+        - 需要直接存储函数指针(`int (*fp) (int, int) = add;`)或lambda表达式来限定函数版本
 
 
 ---
