@@ -215,7 +215,7 @@ StrVec::StrVec(StrVec &&s) noexcept:    // 移动构造函数本身不应抛出�
 #### 14.5 下标运算符operator[]
 - 必须为成员函数, 返回访问元素的引用, 且应有普通和const两个版本
 - `const string& operator[](sizt_t n) const { return elements[n]; }`
-#### 14.6递增和递减运算符++, --
+#### 14.6 递增和递减运算符++, --
 - 应为成员函数, 返回对象的引用, 且应有前置和后置两个版本
 - 前置: `StrBlobPtr& operator++ ();`
 - 后置: `StrBlobPtr operator++ (int);`, 形参仅用于区分前置, 不参与运算, 返回原值, 而非修改后的引用
@@ -299,8 +299,13 @@ StrVec::StrVec(StrVec &&s) noexcept:    // 移动构造函数本身不应抛出�
       size_t val;
     }
     ``` 
-- 一般不定义转换运算符, 除了向bool类型的转换, 因此需要考虑到这类情况
-  - `int i = 42; cin << i;` //cin遇到<<时本应报错(变为bool), 随后又因类型转换被执行移位运算!
+- 一般不定义转换运算符, 需要考虑到这类情况:
+  - `int i = 42; cin << i;` //cin遇到<<时本应报错(变为bool), 随后又因类型转换(为int)被执行移位运算!
+  - 因此C++11 引入显式的类型转换运算符: `explict operator int() const { return val; } `, 对于未显式转换的表达式将会报错, 但用作条件的表达式例外
+  - 对于IO类型, 早期的解决方法是转换为void*类型, 新标准下实行显式地向bool转换
+  
+##### 避免有二义性的类型转换
+- 必须确保转换方式唯一
 
 ---
 
