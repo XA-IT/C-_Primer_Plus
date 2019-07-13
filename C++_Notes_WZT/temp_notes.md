@@ -18,7 +18,7 @@ C++清华：https://www.bilibili.com/video/av20786390
 - 别名
   - `typedef double wages; //定义wages为double的别名`
   - `C++11: using SI = Sales_item; //定义SI为Sales_item别名`
-  - 注意！`typedef char* pstring; //是指针的别名` >> `const pstring cstr = 0; //表示一个常量指针而非指向const char的指针`
+  - 注意！`typedef char* pstring; //是指针的别名` >> `const pstring cstr = 0; //表示一个指针常量而非指向const char的指针`
 - auto 与 decltype
   - auto 会**忽略**掉顶层const，但保留底层const
   - decltype((变量))将会返回变量的引用，因此必须初始化，对于变量为解引用操作同样需要初始化
