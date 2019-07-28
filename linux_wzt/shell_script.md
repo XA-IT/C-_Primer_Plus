@@ -23,3 +23,7 @@
 - 获取字符串长度
   - `string="abcd"`
   - `echo ${#string}` #输出4
+
+
+
+`cat test.txt | xargs -I {} ~/.sk.sh -p {} -l`
