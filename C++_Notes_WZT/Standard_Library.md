@@ -390,3 +390,44 @@ to be continue;
 
 #### 使用标准库: 一个文本查询程序
 见[实现文件](tryit\cpp_primer_12_27_1.cpp)
+
+### 补充:
+#### bitset
+C++的 bitset 在 bitset 头文件中，它是一种类似数组的结构，它的每一个元素只能是0或1，每个元素仅用1 bit空间。
+```cpp
+    bitset<4> bitset1;　　//无参构造，长度为４，默认每一位为0
+    bitset<8> bitset2(12);　　//长度为８，二进制保存，前面用０补充
+    string s = "100101";
+    bitset<10> bitset3(s);　　//长度为10，前面用0补充    
+    
+    char s2[] = "10101";
+    bitset<13> bitset4(s2);　　//长度为13，前面用0补充
+
+    cout << bitset1 << endl;　　//0000
+    cout << bitset2 << endl;　　//00001100
+    cout << bitset3 << endl;　　//0000100101
+    cout << bitset4 << endl;　　//0000000010101
+
+    //若比bitsize大，参数为整数时取后面部分，参数为字符串时取前面部分
+    bitset<2> bitset1(12);　　//12的二进制为1100（长度为４），但bitset1的size=2，只取后面部分，即00
+    string s = "100101";　　
+    bitset<4> bitset2(s);　　//s的size=6，而bitset的size=4，只取前面部分，即1001
+```
+
+操作符:  
+移位/`[]`访问等
+
+函数:  
+```cpp
+    bitset<8> foo ("10011011");
+
+    cout << foo.count() << endl;　　//5　　（count函数用来求bitset中1的位数，foo中共有５个１
+    cout << foo.size() << endl;　　 //8　　（size函数用来求bitset的大小，一共有８位
+    //test函数会检查下标合法性
+    cout << foo.test(0) << endl;　　//true　　（test函数用来查下标处的元素是０还是１，并返回false或true，此处foo[0]为１，返回true
+    cout << foo.test(2) << endl;　　//false　　（同理，foo[2]为０，返回false
+
+    cout << foo.any() << endl;　　//true　　（any函数检查bitset中是否有１
+    cout << foo.none() << endl;　　//false　　（none函数检查bitset中是否没有１
+    cout << foo.all() << endl;　　//false　　（all函数检查bitset中是全部为１
+```
